@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_desk/features/user/user_home/controller/input_document_controller.dart';
 import 'package:get/get.dart';
-
+// aita shoedropdowndilogbox ===================================================================================
 void showDropdownDialog(InputDocumentController inputDocumentController) {
   Get.dialog(
     Dialog(
@@ -59,3 +59,43 @@ void showDropdownDialog(InputDocumentController inputDocumentController) {
     ),
   );
 }
+
+
+
+// ai ta hosse Gestor detector container jeta diya uporerr alart dailogbox a dkhukbe
+
+GestureDetector(
+                              onTap: () =>
+                                  showDropdownDialog(inputDocumentController),
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 12),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Obx(() => Text(
+                                          inputDocumentController
+                                                  .selectedValues.isEmpty
+                                              ? 'Select options or search'
+                                              : inputDocumentController
+                                                  .selectedValues
+                                                  .join(', '),
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: inputDocumentController
+                                                    .selectedValues.isEmpty
+                                                ? Colors.grey[300]
+                                                : Colors.black,
+                                          ),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        )),
+                                  ],
+                                ),
+                              ),
+                            ),
