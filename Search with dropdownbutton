@@ -1,0 +1,61 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_desk/features/user/user_home/controller/input_document_controller.dart';
+import 'package:get/get.dart';
+
+void showDropdownDialog(InputDocumentController inputDocumentController) {
+  Get.dialog(
+    Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              decoration: const InputDecoration(
+                hintText: 'Search...',
+                hintStyle: TextStyle(fontSize: 16, color: Colors.black12),
+                enabledBorder: InputBorder.none,
+                focusedBorder: InputBorder.none,
+              ),
+              onChanged: (value) {
+                inputDocumentController.filterItems(value);
+              },
+            ),
+          ),
+          Obx(() => inputDocumentController.filteredItems.isEmpty
+              ? const Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Text(
+                      'No users found',
+                      style: TextStyle(fontSize: 20, color: Colors.black26),
+                    ),
+                  ),
+                )
+              : SizedBox(
+                  height: 300,
+                  child: ListView.builder(
+                    itemCount: inputDocumentController.filteredItems.length,
+                    itemBuilder: (context, index) {
+                      String username =
+                          inputDocumentController.filteredItems[index];
+                      return Obx(() => ListTile(
+                            title: Text(username),
+                            trailing: inputDocumentController.selectedValues
+                                    .contains(username)
+                                ? const Icon(Icons.check, color: Colors.green)
+                                : null,
+                            onTap: () =>
+                                inputDocumentController.selectItem(username),
+                          ));
+                    },
+                  ),
+                )),
+        ],
+      ),
+    ),
+  );
+}
